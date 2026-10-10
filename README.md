@@ -25,7 +25,7 @@ Perigee 是一个 PWA 前端，加一个跑在你服务器上的小网关。网�
 
 **API 通道（纯聊天）**：OpenRouter、DeepSeek、OpenAI、Claude 官方 API。key 在设置里填，能聊天、发图。这个通道不调工具。
 
-**群聊**：几个不同人设的 CC 一起聊，依赖 mousecrew（链接待补）（另装，见下文）。
+**群聊**：几个不同人设的 CC 一起聊，依赖 [mousecrew](https://github.com/anqinou-art/mousecrew)（另装，见下文）。
 
 **聊天里的小玩法**（Claude 在回复里写标记，前端渲染成卡片，写法见 [docs/给你的Claude看.md](docs/给你的Claude看.md)）：
 - 语音条 `[[voice]]`：回复合成语音。声音可选 Edge（免费）/ ElevenLabs / MOSI。
@@ -171,7 +171,7 @@ curl -s -u 你的用户名:你的密码 https://perigee.example.com/api/rooms   
 
 ### 群聊（mousecrew）
 
-群聊房间跑在 mousecrew（链接待补） 上，安装和配置按它自己的 README。装好之后：
+群聊房间跑在 [mousecrew](https://github.com/anqinou-art/mousecrew) 上，安装和配置按它自己的 README。装好之后：
 - nginx 加一段 `/crew-api/` 反代到 mousecrew（见上面注释掉的那段），前端默认就从 `/crew-api` 访问。路径不一样就改 `VITE_CREW_API_BASE` 再 build。
 - 「设置 › 生图 · 推送 · 群聊」里填 mousecrew 在服务器上的地址和 token，网关合并转发群聊记录时要用。
 
@@ -225,3 +225,8 @@ CC 通道的模型目录写在 `gateway/lib/store.js` 的 `MODEL_CATALOG`，加�
 [MIT](LICENSE) © Perigee contributors
 
 附带的第三方代码：`gateway/tools/forge-reload/`，来自 Vivi-Seth/forge-reload，MIT，版权归原作者（见该目录 LICENSE）。
+
+## 致谢
+
+- **[forge-reload](https://github.com/Vivi-Seth/forge-reload)**（Vivi & Seth，MIT）：自动换窗的剪切脚本，原样附带在 `gateway/tools/forge-reload/`。
+- **[mousecrew](https://github.com/anqinou-art/mousecrew)**（anqinou-art，MIT）：群聊房间的后端。Perigee 不附带它的代码，只通过它的接口接入，需要另外安装。

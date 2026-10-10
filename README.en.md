@@ -10,7 +10,7 @@ Perigee is a PWA front end plus a small gateway on your server. The gateway keep
 ## Features
 - **CC channel (full power):** one long-running `claude` process per room with session resume, shared MCP config, a per-room shell terminal, **per-room permission mode** (ask every step by default / accept edits / plan / bypass) with approval cards in chat, optional auto "window switch" when the context fills up (off by default; uses the bundled third-party MIT script `gateway/tools/forge-reload`).
 - **API channels (chat only):** OpenRouter, DeepSeek, OpenAI, Anthropic API. Keys are entered in Settings.
-- **Group chat** via mousecrew (link TBD) (installed separately).
+- **Group chat** via [mousecrew](https://github.com/anqinou-art/mousecrew) (installed separately).
 - **Chat markers** rendered as UI: voice notes `[[voice]]`, bell `[[铃铛:…]]`, invite cards `[invite: …]`, choice cards `[choices: …]`, stickers `[sticker:name]`, file cards `[[file:…]]`, song cards `[song:…]`. See `docs/给你的Claude看.md` for a snippet to paste into your `CLAUDE.md`.
 - Voice calls (TTS: Edge / ElevenLabs / MOSI; speech-to-text: self-hosted / OpenAI-compatible / Gemini, which can also pick up tone of voice and background sounds), optional image generation, Bark push, todo reminders.
 
@@ -27,3 +27,8 @@ Perigee is a PWA front end plus a small gateway on your server. The gateway keep
 
 ## License
 [MIT](LICENSE) © Perigee contributors
+
+## Thanks
+
+- **[forge-reload](https://github.com/Vivi-Seth/forge-reload)** by Vivi & Seth (MIT) — the context-switch script, bundled unchanged-in-spirit under `gateway/tools/forge-reload/`.
+- **[mousecrew](https://github.com/anqinou-art/mousecrew)** by anqinou-art (MIT) — the group-chat backend. Not bundled; Perigee talks to it over its API, install it separately.
