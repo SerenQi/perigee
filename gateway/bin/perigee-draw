@@ -1,0 +1,37 @@
+#!/usr/bin/env node
+// perigee-draw —— 给 Claude 用的生图小命令（调本机网关 POST /draw）。
+// 用法：perigee-draw "提示词" [文件名.png] [--aspect 1:1|3:4|4:3|9:16|16:9] [--quality low|medium|high] [--ref 参考图 ...] [--keep]
+//   · 提示词以 @ 开头就从文件读：perigee-draw @prompt.txt
+//   · 图存进网关发件箱；回复里写打印出来的 [[file:文件名]] 就能递给用户
+//   · --keep 顺手放进图库
+// 网关地址默认 http://127.0.0.1:3003，可用环境变量 PERIGEE_GATEWAY_URL 改。
+const fs = require('fs');
+const path = require('path');
+const args = process.argv.slice(2);
+const opt = { refs: [] };
+const pos = [];
+for (let i = 0; i < args.length; i++) {
+  const a = args[i];
+  if (a === '--aspect') opt.aspect = args[++i];
+  else if (a === '--quality') opt.quality = args[++i];
+  else if (a === '--keep') opt.keep = true;
+  else if (a === '--ref') { while (args[i + 1] && !args[i + 1].startsWith('--')) opt.refs.push(args[++i]); }
+  else if (a === '-h' || a === '--help') { console.log(fs.readFileSync(__filename, 'utf8').split('\n').slice(1, 8).join('\n')); process.exit(0); }
+  else pos.push(a);
+}
+if (!pos[0]) { console.error('用法：perigee-draw "提示词" [文件名.png] [--aspect 1:1] [--quality medium] [--ref 图...] [--keep]'); process.exit(2); }
+const prompt = pos[0].startsWith('@') ? fs.readFileSync(pos[0].slice(1), 'utf8') : pos[0];
+const MIME = { '.png': 'image/png', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.webp': 'image/webp', '.gif': 'image/gif' };
+const refs = opt.refs.map(p => `data:${MIME[path.extname(p).toLowerCase()] || 'image/png'};base64,${fs.readFileSync(p).toString('base64')}`);
+const base = (process.env.PERIGEE_GATEWAY_URL || 'http://127.0.0.1:3003').replace(/\/+$/, '');
+(async () => {
+  const t = Date.now();
+  const r = await fetch(`${base}/draw`, {
+    method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ prompt, name: pos[1], aspect: opt.aspect, quality: opt.quality, refs, keep: Boolean(opt.keep) }),
+  }).catch(e => { console.error('连不上网关：' + e.message); process.exit(1); });
+  const j = await r.json().catch(() => ({}));
+  if (!r.ok) { console.error('画不出来：' + (j?.error?.message || r.status)); process.exit(1); }
+  console.log(`画好了：${j.path}（${Math.round((Date.now() - t) / 1000)}s${j.gallery ? '，已放进图库' : ''}）`);
+  console.log(`回复里写：[[file:${j.file}]]`);
+})();

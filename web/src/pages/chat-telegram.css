@@ -1,0 +1,89 @@
+.tg-room {
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.tg-scroll {
+  overscroll-behavior: contain;
+  scrollbar-color: rgba(255, 255, 255, .55) transparent;
+}
+
+.tg-bubble {
+  border-radius: 17px;
+  padding: 7px 11px 6px;
+  font-size: 15px;
+  line-height: 1.42;
+  box-shadow: 0 0 0 .5px rgba(0, 0, 0, .14), 0 1px 1.5px rgba(0, 0, 0, .08);   /* 白气泡落在白底上靠这圈细线立住 */
+}
+
+.tg-bubble p:last-of-type { display: inline; }
+
+.tg-bubble-user::after,
+.tg-bubble-ai::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  width: 12px;
+  height: 12px;
+}
+
+.tg-bubble-user { border-bottom-right-radius: 5px; }
+.tg-bubble-ai { border-bottom-left-radius: 5px; }
+
+.tg-bubble-user::after {
+  right: -5px;
+  background: var(--tg-mine);
+  clip-path: polygon(0 0, 0 100%, 100% 100%);
+}
+
+.tg-bubble-ai::after {
+  left: -5px;
+  background: var(--tg-theirs);
+  clip-path: polygon(100% 0, 0 100%, 100% 100%);
+}
+
+.tg-time { opacity: .46; }
+
+.tg-composer {
+  border: 1px solid rgba(0, 0, 0, .12);
+  border-radius: 24px;
+  background: #ffffff;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, .06);
+}
+
+.tg-compose-input {
+  max-height: 112px;
+  border: 1px solid rgba(0, 0, 0, .12);
+  border-radius: 19px;
+  background: #ffffff;
+  color: #111111;
+}
+
+.tg-compose-input::placeholder { color: rgba(17, 17, 17, .38); }
+
+.tg-compose-action {
+  background: #ffffff;
+  color: #111111;
+  border: 1px solid rgba(0, 0, 0, .12);
+}
+
+/* 玻璃气泡（设置 › 外观里选）：材质定义在 tokens.css 的 .tg-glass .tg-bubble。
+   小尾巴是纯色 clip-path，透不过去会穿帮，玻璃模式下收掉，气泡四角走圆 */
+.tg-glass .tg-bubble-user::after,
+.tg-glass .tg-bubble-ai::after { display: none; }
+.tg-glass .tg-bubble-user { border-bottom-right-radius: 17px; }
+.tg-glass .tg-bubble-ai { border-bottom-left-radius: 17px; }
+
+@media (min-width: 720px) {
+  .tg-scroll { padding-left: max(16px, calc((100% - 720px) / 2)); padding-right: max(16px, calc((100% - 720px) / 2)); }
+  .tg-composer { width: min(700px, calc(100% - 20px)); margin-left: auto; margin-right: auto; }
+}
+
+.chat-noselect,
+.chat-noselect * {
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+.chat-noselect img { -webkit-user-drag: none; }
