@@ -7,10 +7,9 @@ Perigee 是一个 PWA 前端，加一个跑在你服务器上的小网关。网�
 
 > English: [README.en.md](README.en.md)
 
-<!-- 截图位：聊天页 / 侧栏 / 设置页，各一张（请放你自己的截图，别放带真实对话的图） -->
-| 聊天 | 房间 | 设置 |
+| 聊天 · 审批后完成 | 首页（灰阶浮雕） | 涨落 |
 |---|---|---|
-| *(截图占位)* | *(截图占位)* | *(截图占位)* |
+| <img src="docs/screenshots/chat.png" width="240"> | <img src="docs/screenshots/home.png" width="240"> | <img src="docs/screenshots/ebb.png" width="240"> |
 
 ---
 

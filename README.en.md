@@ -1,5 +1,7 @@
 # Perigee
 
+<p><img src="docs/screenshots/chat.png" width="240"> <img src="docs/screenshots/home.png" width="240"> <img src="docs/screenshots/ebb.png" width="240"></p>
+
 > **v0.1.0 · early preview.** Works, but still changing fast. Back up `gateway/data/` before upgrading.
 
 **Let Claude Code live in a little home on your phone.**
