@@ -30,5 +30,5 @@ Perigee is a PWA front end plus a small gateway on your server. The gateway keep
 
 ## Thanks
 
-- **[forge-reload](https://github.com/Vivi-Seth/forge-reload)** by Vivi & Seth (MIT) — the context-switch script, bundled unchanged-in-spirit under `gateway/tools/forge-reload/`.
+- **[forge-reload](https://github.com/Vivi-Seth/forge-reload)** by Vivi & Seth (MIT) — the context-switch script, bundled (paths made configurable) under `gateway/tools/forge-reload/`.
 - **[mousecrew](https://github.com/anqinou-art/mousecrew)** by anqinou-art (MIT) — the group-chat backend. Not bundled; Perigee talks to it over its API, install it separately.
